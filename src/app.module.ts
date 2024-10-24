@@ -8,8 +8,8 @@ import { QueueModule } from './queue/queue.module';
   imports: [
     BullModule.forRoot({
       connection: {
-        host: 'localhost',
-        port: 5379,
+        host: 'redis',
+        port: 6379,
       },
     }),
     QueueModule,
