@@ -3,8 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BullModule } from '@nestjs/bullmq';
 import { QueueModule } from './queue/queue.module';
-import { JobModule } from './job/job.module';
-import { ProcessingModule } from './processing/processing.module';
+// import { JobModule } from './job/job.module';
+// import { ProcessingModule } from './processing/processing.module';
 
 @Module({
   imports: [
@@ -15,8 +15,8 @@ import { ProcessingModule } from './processing/processing.module';
       },
     }),
     QueueModule,
-    JobModule,
-    ProcessingModule,
+    // JobModule,
+    // ProcessingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
