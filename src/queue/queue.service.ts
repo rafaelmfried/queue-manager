@@ -8,10 +8,16 @@ import { Queue } from 'bullmq';
 export class QueueService {
   async create(queueName: string): Promise<string> {
     try {
-      const queue = await new Queue(queueName);
+      const queue = await new Queue(queueName, {
+        connection: {
+          host: 'redis',
+          port: 6379,
+        },
+      });
       return queue.name;
     } catch (err) {
       console.error(err);
+      throw new Error('Could not create a queue!');
     }
   }
 

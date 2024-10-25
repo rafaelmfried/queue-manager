@@ -12,6 +12,8 @@ services:
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
+    networks:
+      - app-network
     volumes:
       - .:/app
 
@@ -20,3 +22,9 @@ services:
     image: 'redis:alpine'
     ports:
       - '6379:6379'
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
