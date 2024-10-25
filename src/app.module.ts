@@ -1,26 +1,22 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BullModule } from '@nestjs/bullmq';
 import { QueueModule } from './queue/queue.module';
-import { Redis } from 'ioredis';
 import { RedisModule } from './redis/redis.module';
+import { BullModule } from '@nestjs/bullmq';
+import Redis from 'ioredis';
 
 @Module({
   imports: [
+    RedisModule,
     BullModule.forRootAsync({
-      useFactory: () => {
-        const connection = new Redis({
-          host: 'redis',
-          port: 6379,
-        });
-        return {
-          connection,
-        };
-      },
+      imports: [RedisModule],
+      inject: ['REDIS_CONNECTION'],
+      useFactory: (redisConnection: Redis) => ({
+        connection: redisConnection,
+      }),
     }),
     QueueModule,
-    RedisModule,
   ],
   controllers: [AppController],
   providers: [AppService],
